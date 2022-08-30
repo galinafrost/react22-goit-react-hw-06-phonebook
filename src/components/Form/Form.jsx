@@ -18,7 +18,15 @@ const Form = () => {
   const dispatch = useDispatch();
 
   const onAddContacts = data => {
+    const resultNumber = contacts.find(
+      contact => contact.number === data.number
+    );
+    if (resultNumber) {
+      return alert(`${data.name} уже есть в списке`);
+    }
+
     const action = addContact(data);
+
     dispatch(action);
   };
 
@@ -33,19 +41,6 @@ const Form = () => {
     const { value } = e.target;
     setFilter(value);
   };
-
-  //   const resultNumber = contacts.find(contact => contact.number === number);
-  //   if (resultNumber) {
-  //     return alert(`${name} уже есть в списке`);
-  //   }
-  //   const newContact = {
-  //     name,
-  //     number,
-  //     id: nanoid(),
-  //   };
-  //   setContacts(prevState => [...prevState, newContact]);
-  //   localStorage.setItem('contacts', JSON.stringify([...contacts, newContact]));
-  // };
 
   const getFilteredContacts = () => {
     if (!filter) {
